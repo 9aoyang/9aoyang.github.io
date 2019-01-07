@@ -3,7 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
     <url>
-      <loc>/categories/</loc>
+      <loc>https://9aoyang.me/2014/creating-a-new-theme/</loc>
+      
+      <lastmod>2014-09-28T00:00:00+08:00</lastmod>
+      
+      
+      
+      
+    </url>
+  
+    <url>
+      <loc>https://9aoyang.me/about/</loc>
+      
+      
+      
+      
+    </url>
+  
+    <url>
+      <loc>https://9aoyang.me/</loc>
+      
+      <lastmod>2014-09-28T00:00:00+08:00</lastmod>
       
       
       
@@ -13,7 +33,7 @@
     </url>
   
     <url>
-      <loc>/</loc>
+      <loc>https://9aoyang.me/categories/</loc>
       
       
       
@@ -23,7 +43,43 @@
     </url>
   
     <url>
-      <loc>/tags/</loc>
+      <loc>https://9aoyang.me/posts/</loc>
+      
+      <lastmod>2014-09-28T00:00:00+08:00</lastmod>
+      
+      
+      
+      <priority>0</priority>
+      
+      
+    </url>
+  
+    <url>
+      <loc>https://9aoyang.me/tags/</loc>
+      
+      
+      
+      <priority>0</priority>
+      
+      
+    </url>
+  
+    <url>
+      <loc>https://9aoyang.me/categories/category/</loc>
+      
+      <lastmod>2014-09-28T00:00:00+08:00</lastmod>
+      
+      
+      
+      <priority>0</priority>
+      
+      
+    </url>
+  
+    <url>
+      <loc>https://9aoyang.me/tags/tag/</loc>
+      
+      <lastmod>2014-09-28T00:00:00+08:00</lastmod>
       
       
       

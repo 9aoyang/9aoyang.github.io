@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on My New Hugo Site</title>
-    <link>/categories/</link>
-    <description>Recent content in Categories on My New Hugo Site</description>
+    <title>Categories on 9aoyang&#39;s blog</title>
+    <link>https://9aoyang.me/categories/</link>
+    <description>Recent content in Categories on 9aoyang&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://9aoyang.me/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>category</title>
+      <link>https://9aoyang.me/categories/category/</link>
+      <pubDate>Sun, 28 Sep 2014 00:00:00 +0800</pubDate>
+      
+      <guid>https://9aoyang.me/categories/category/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>
