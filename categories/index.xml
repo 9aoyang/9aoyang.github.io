@@ -6,9 +6,19 @@
     <description>Recent content in Categories on 9aoyang&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Fri, 22 Mar 2019 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://9aoyang.me/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>project</title>
+      <link>https://9aoyang.me/categories/project/</link>
+      <pubDate>Fri, 22 Mar 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://9aoyang.me/categories/project/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Vue</title>

@@ -17,10 +17,11 @@
       <pubDate>Tue, 29 Jan 2019 00:00:00 +0800</pubDate>
       
       <guid>https://9aoyang.me/2019/some-way-to-import-photo-in-vue/</guid>
-      <description>Vue项目中引入图片资源的几种方式 按照常规语法引用路径 HTML &amp;lt;img src = &#39;../../path/to/image.png&#39; /&amp;gt;  CSS background-image: url(&#39;../../path/to/image.png&#39;)  JavaScript // import import image from &#39;../../path/to/image.png&#39; // require require(&#39;../../path/to/image.png&#39;)  这种方式是最常见的，但这种引入方式存在很高的维护成本。在webpack中，可以通过配置alias来简化路径，同时由于指定了更精确的路径，可以降低构建的文件搜索耗时，进而提高构建效率。
-module.exports = { //... resolve: { alias: { path: path.resolve(__dirname, &#39;../../path&#39;), } } }  这样，js中的写法就可以变为
-// import import image from &#39;path/to/image.png&#39; // require require(&#39;path/to/image.png&#39;)  如果再借助css-loader，css中的写法就可以是
- To import assets from a node_modules path (include resolve.modules) and for alias, prefix it with a ~:</description>
+      <description>按照常规语法引用路径 HTML &amp;lt;img src=&amp;quot;../../path/to/image.png&amp;quot; /&amp;gt;  CSS background-image: url(&#39;../../path/to/image.png&#39;);  JavaScript // import import image from &#39;../../path/to/image.png&#39;; // require require(&#39;../../path/to/image.png&#39;);  这种方式是最常见的，但这种引入方式存在很高的维护成本。在webpack中，可以通过配置alias来简化路径，同时由于指定了更精确的路径，可以降低构建的文件搜索耗时，进而提高构建效率。
+module.exports = { //... resolve: { alias: { path: path.resolve(__dirname, &#39;../../path&#39;) } } };  这样，js 中的写法就可以变为
+// import import image from &#39;path/to/image.png&#39;; // require require(&#39;path/to/image.png&#39;);  如果再借助css-loader，css中的写法就可以是
+ To import assets from a node_modules path (include resolve.modules) and for alias, prefix it with a ~:
+ background-image: url(&#39;~path/to/image.</description>
     </item>
     
   </channel>

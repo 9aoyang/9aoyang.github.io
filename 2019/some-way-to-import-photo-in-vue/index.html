@@ -12,6 +12,7 @@
     
     
     
+    <link rel="next" href="https://9aoyang.me/2019/map-track/" />
     <link rel="canonical" href="https://9aoyang.me/2019/some-way-to-import-photo-in-vue/" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -42,15 +43,12 @@
     "@type" : "BlogPosting",
     "mainEntityOfPage": {
          "@type": "WebPage",
-         "@id": "https://9aoyang.me"
+         "@id": "https:\/\/9aoyang.me"
     },
     "articleSection" : "posts",
     "name" : "Vue项目中引入图片资源的几种方式",
     "headline" : "Vue项目中引入图片资源的几种方式",
-    "description" : "Vue项目中引入图片资源的几种方式 按照常规语法引用路径 HTML &lt;img src = '../../path/to/image.png' /&gt;  CSS background-image: url('../../path/to/image.png')  JavaScript // import import image from '../../path/to/image.png' // require require('../../path/to/image.png')  这种方式是最常见的，但这种引入方式存在很高的维护成本。在webpack中，可以通过配置alias来简化路径，同时由于指定了更精确的路径，可以降低构建的文件搜索耗时，进而提高构建效率。
-module.exports = { //... resolve: { alias: { path: path.resolve(__dirname, '../../path'), } } }  这样，js中的写法就可以变为
-// import import image from 'path/to/image.png' // require require('path/to/image.png')  如果再借助css-loader，css中的写法就可以是
- To import assets from a node_modules path (include resolve.modules) and for alias, prefix it with a ~:",
+    "description" : "按照常规语法引用路径 HTML \x26lt;img src=\x26quot;..\/..\/path\/to\/image.png\x26quot; \/\x26gt;  CSS background-image: url(\x27..\/..\/path\/to\/image.png\x27);  JavaScript \/\/ import import image from \x27..\/..\/path\/to\/image.png\x27; \/\/ require require(\x27..\/..\/path\/to\/image.png\x27);  这种方式是最常见的，但这种引入方式存在很高的维护成本。在webpack中，可以通过配置alias来简化路径，同时由于指定了更精确的路径，可以降低构建的文件搜索耗时，进而提高构建效率。\nmodule.exports = { \/\/... resolve: { alias: { path: path.resolve(__dirname, \x27..\/..\/path\x27) } } };  这样，js 中的写法就可以变为\n\/\/ import import image from \x27path\/to\/image.png\x27; \/\/ require require(\x27path\/to\/image.png\x27);  如果再借助css-loader，css中的写法就可以是\n To import assets from a node_modules path (include resolve.modules) and for alias, prefix it with a ~:\n background-image: url(\x27~path\/to\/image.",
     "inLanguage" : "en-us",
     "author" : "9aoyang",
     "creator" : "9aoyang",
@@ -58,11 +56,11 @@ module.exports = { //... resolve: { alias: { path: path.resolve(__dirname, '../.
     "accountablePerson" : "9aoyang",
     "copyrightHolder" : "9aoyang",
     "copyrightYear" : "2019",
-    "datePublished": "2019-01-29 00:00:00 &#43;0800 CST",
-    "dateModified" : "2019-01-29 00:00:00 &#43;0800 CST",
-    "url" : "https://9aoyang.me/2019/some-way-to-import-photo-in-vue/",
+    "datePublished": "2019-01-29 00:00:00 \x2b0800 CST",
+    "dateModified" : "2019-01-29 00:00:00 \x2b0800 CST",
+    "url" : "https:\/\/9aoyang.me\/2019\/some-way-to-import-photo-in-vue\/",
     "wordCount" : "107",
-    "keywords" : [ "Vue", "9aoyang&#39;s blog"]
+    "keywords" : [ "Vue", "9aoyang\x27s blog"]
 }
 </script>
 
@@ -87,8 +85,6 @@ module.exports = { //... resolve: { alias: { path: path.resolve(__dirname, '../.
                 
                 <a class="menu-item" href="/tags/" title="">Tags</a>
                 
-                <a class="menu-item" href="/about/" title="">About</a>
-                
         </div>
     </div>
 </nav>
@@ -109,8 +105,6 @@ module.exports = { //... resolve: { alias: { path: path.resolve(__dirname, '../.
                 <a class="menu-item" href="/categories/" title="">Categories</a>
                 
                 <a class="menu-item" href="/tags/" title="">Tags</a>
-                
-                <a class="menu-item" href="/about/" title="">About</a>
                 
         </div>
     </div>
@@ -152,26 +146,24 @@ module.exports = { //... resolve: { alias: { path: path.resolve(__dirname, '../.
 
           
 
-<h1 id="vue项目中引入图片资源的几种方式">Vue项目中引入图片资源的几种方式</h1>
-
 <h2 id="按照常规语法引用路径">按照常规语法引用路径</h2>
 
 <h3 id="html">HTML</h3>
 
-<pre><code class="language-html">&lt;img src = '../../path/to/image.png' /&gt;
+<pre><code class="language-html">&lt;img src=&quot;../../path/to/image.png&quot; /&gt;
 </code></pre>
 
 <h3 id="css">CSS</h3>
 
-<pre><code class="language-css">background-image: url('../../path/to/image.png')
+<pre><code class="language-css">background-image: url('../../path/to/image.png');
 </code></pre>
 
 <h3 id="javascript">JavaScript</h3>
 
 <pre><code class="language-js">// import
-import image from '../../path/to/image.png'
+import image from '../../path/to/image.png';
 // require
-require('../../path/to/image.png')
+require('../../path/to/image.png');
 </code></pre>
 
 <p>这种方式是最常见的，但这种引入方式存在很高的维护成本。在<code>webpack</code>中，可以通过配置<code>alias</code>来简化路径，同时由于指定了更精确的路径，可以降低构建的文件搜索耗时，进而提高构建效率。</p>
@@ -180,18 +172,18 @@ require('../../path/to/image.png')
   //...
   resolve: {
     alias: {
-      path: path.resolve(__dirname, '../../path'),
+      path: path.resolve(__dirname, '../../path')
     }
   }
-}
+};
 </code></pre>
 
-<p>这样，js中的写法就可以变为</p>
+<p>这样，js 中的写法就可以变为</p>
 
 <pre><code class="language-js">// import
-import image from 'path/to/image.png'
+import image from 'path/to/image.png';
 // require
-require('path/to/image.png')
+require('path/to/image.png');
 </code></pre>
 
 <p>如果再借助<code>css-loader</code>，<code>css</code>中的写法就可以是</p>
@@ -200,7 +192,7 @@ require('path/to/image.png')
 <p>To import assets from a node_modules path (include resolve.modules) and for alias, prefix it with a ~:</p>
 </blockquote>
 
-<pre><code class="language-css">background-image: url('~path/to/image.png')
+<pre><code class="language-css">background-image: url('~path/to/image.png');
 </code></pre>
 
 <p>进一步借助<code>vue-html-loader</code> 和 <code>css-loader</code></p>
@@ -211,19 +203,19 @@ require('path/to/image.png')
 
 <p>非根路径会被<code>vue-html-loader</code>和<code>css-loader</code>转化为相对路径，如果要想被识别为模块路径，就在路径前加上前缀<code>~</code>。</p>
 
-<pre><code class="language-html">&lt;img src = '~path/to/image.png' /&gt;
+<pre><code class="language-html">&lt;img src=&quot;~path/to/image.png&quot; /&gt;
 </code></pre>
 
-<h2 id="在vue中使用-v-bind-绑定图片-src-属性">在vue中使用<code>v-bind</code>绑定图片<code>src</code>属性：</h2>
+<h2 id="在-vue-中使用-v-bind-绑定图片-src-属性">在 vue 中使用<code>v-bind</code>绑定图片<code>src</code>属性：</h2>
 
-<p>首先，在data中定义好图片路径</p>
+<p>首先，在 data 中定义好图片路径</p>
 
-<pre><code class="language-js">path: require('path/to/image.png')
+<pre><code class="language-js">path: require('path/to/image.png');
 </code></pre>
 
 <p>然后，在 template 模板里</p>
 
-<pre><code class="language-html">&lt;img :src='path' /&gt;
+<pre><code class="language-html">&lt;img :src=&quot;path&quot; /&gt;
 </code></pre>
 
     </div>
@@ -268,6 +260,8 @@ require('path/to/image.png')
 
     <div class="post-nav">
          
+        
+        <a href="https://9aoyang.me/2019/map-track/" class="next" rel="next" title="基于 Vue 和 OpenLayers 地图的轨迹绘制功能">基于 Vue 和 OpenLayers 地图的轨迹绘制功能&nbsp;<i class="iconfont icon-right"></i></a>
         
     </div>
 

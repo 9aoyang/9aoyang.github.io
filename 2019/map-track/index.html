@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noodp" />
+    
+    <meta name="author" content="9aoyang">
+    
+    
+    
+    
+    <link rel="prev" href="https://9aoyang.me/2019/some-way-to-import-photo-in-vue/" />
+    
+    <link rel="canonical" href="https://9aoyang.me/2019/map-track/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>
+        
+        
+        基于 Vue 和 OpenLayers 地图的轨迹绘制功能 | 9aoyang&#39;s blog
+        
+    </title>
+    <meta name="title" content="基于 Vue 和 OpenLayers 地图的轨迹绘制功能 | 9aoyang&#39;s blog">
+      
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+    
+    
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/9aoyang.me"
+    },
+    "articleSection" : "posts",
+    "name" : "基于 Vue 和 OpenLayers 地图的轨迹绘制功能",
+    "headline" : "基于 Vue 和 OpenLayers 地图的轨迹绘制功能",
+    "description" : "前言 近期工作中主要都在做 gais 地图的相关业务，本文会对项目中遇到的一些问题和挑战做一次梳理和总结，方便同事们在遇到类似业务场景时有所参考，快速上手\n准备工作 需求分析  根据查询结果返回的巡检数据，对经过的监控点进行轨迹绘制 监控点默认状态为未经过，当查询结束后，根据查询结果更新矢量图层中的点标记，将状态更新为经过或未经过 用户可以手动调整监控点是否经过，修改后监控点状态和轨迹同步更新  根据业务封装的地图方法  generateOrbit 轨迹绘制 clearOrbit 清除轨迹 updateStatus 更新点标记状态  实现 轨迹绘制 1. 获取数据 输入查询条件，点击查询请求接口，获取到所有监控点的数据记录 trailData 2. 处理数据 当返回的trailData形如[经过，经过，未经过，经过，经过]时，轨迹需要分段显示，此处参考 split 的实现原理，定义chunkTrails 方法并结合Vue的计算属性computed，计算出轨迹数据 orbitData\ncomputed: { orbitData() { if (this.trailData \x26amp;\x26amp; this.trailData.length) { return this.chunkTrails(this.trailData) .map(coordinates =\x26gt; { return { peopleId: \x27\x27 \/\/业务需要，与其他地方保持一致 coordinates }; }) .filter(val =\x26gt; val.coordinates.length); } else { return []; } } ...... } \/** * 根据巡检点状态进行轨迹切分，1 经过 2 未经过 * * @params {object[]} arr 后端返回的巡检点对象数组 * return {number[][]} 分段轨迹 *\/ chunkTrails(arr = []) { let prev = 0; let len = arr.",
+    "inLanguage" : "en-us",
+    "author" : "9aoyang",
+    "creator" : "9aoyang",
+    "publisher": "9aoyang",
+    "accountablePerson" : "9aoyang",
+    "copyrightHolder" : "9aoyang",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-03-22 00:00:00 \x2b0800 CST",
+    "dateModified" : "2019-03-22 00:00:00 \x2b0800 CST",
+    "url" : "https:\/\/9aoyang.me\/2019\/map-track\/",
+    "wordCount" : "496",
+    "keywords" : [ "Vue","Openlayers", "9aoyang\x27s blog"]
+}
+</script>
+
+</head>
+
+
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://9aoyang.me">9aoyang&#39;s blog</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://9aoyang.me">9aoyang&#39;s blog</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">基于 Vue 和 OpenLayers 地图的轨迹绘制功能</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://9aoyang.me" rel="author">9aoyang</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-03-22 itemprop="datePublished">March 22, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://9aoyang.me/categories/project/"> project </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+            
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          
+
+<h2 id="前言">前言</h2>
+
+<p>近期工作中主要都在做 <code>gais</code> 地图的相关业务，本文会对项目中遇到的一些问题和挑战做一次梳理和总结，方便同事们在遇到类似业务场景时有所参考，快速上手</p>
+
+<h2 id="准备工作">准备工作</h2>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://upload-images.jianshu.io/upload_images/4260383-e314ab512a3d2795.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="巡检轨迹页面" class="lazyload"><figcaption class="image-caption">巡检轨迹页面</figcaption></figure></p>
+
+<h3 id="需求分析">需求分析</h3>
+
+<ol>
+<li>根据查询结果返回的巡检数据，对经过的监控点进行<strong>轨迹绘制</strong></li>
+<li>监控点默认状态为<strong>未经过</strong>，当查询结束后，根据查询结果更新矢量图层中的点标记，将状态更新为<strong>经过</strong>或<strong>未经过</strong></li>
+<li>用户可以手动调整监控点是否经过，修改后监控点状态和轨迹<strong>同步更新</strong></li>
+</ol>
+
+<h3 id="根据业务封装的地图方法">根据业务封装的地图方法</h3>
+
+<ul>
+<li><code>generateOrbit</code> 轨迹绘制</li>
+<li><code>clearOrbit</code> 清除轨迹</li>
+<li><code>updateStatus</code> 更新点标记状态</li>
+</ul>
+
+<h2 id="实现">实现</h2>
+
+<h3 id="轨迹绘制">轨迹绘制</h3>
+
+<h4 id="1-获取数据">1. 获取数据</h4>
+
+<p>输入查询条件，点击查询请求接口，获取到所有监控点的数据记录 <code>trailData</code>
+<figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://upload-images.jianshu.io/upload_images/4260383-e7d22ce194673da6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="监控点数据" class="lazyload"><figcaption class="image-caption">监控点数据</figcaption></figure></p>
+
+<h4 id="2-处理数据">2. 处理数据</h4>
+
+<p>当返回的<code>trailData</code>形如<code>[经过，经过，未经过，经过，经过]</code>时，轨迹需要分段显示，此处参考 split 的实现原理，定义<code>chunkTrails</code> 方法并结合<code>Vue</code>的计算属性<code>computed</code>，计算出轨迹数据 <code>orbitData</code></p>
+
+<pre><code class="language-javascript">  computed: {
+    orbitData() {
+      if (this.trailData &amp;&amp; this.trailData.length) {
+        return this.chunkTrails(this.trailData)
+          .map(coordinates =&gt; {
+            return {
+              peopleId: '' //业务需要，与其他地方保持一致
+              coordinates
+            };
+          })
+          .filter(val =&gt; val.coordinates.length);
+      } else {
+        return [];
+      }
+    }
+    ......
+  }
+  /**
+   * 根据巡检点状态进行轨迹切分，1 经过 2 未经过
+   *
+   * @params {object[]} arr 后端返回的巡检点对象数组
+   * return {number[][]} 分段轨迹
+   */
+  chunkTrails(arr = []) {
+    let prev = 0;
+    let len = arr.length;
+    // 提取坐标
+    let getCoordinate = (coordinateArr, end) =&gt;
+      coordinateArr.push(
+        arr.slice(prev, end).map(({ lon: x, lat: y } = {}) =&gt; {
+          return { x, y };
+        })
+      );
+    let res = arr.reduce((acc, val, i) =&gt; {
+      if (val.type !== 1) {
+        if (prev !== i) {
+          getCoordinate(acc, i);
+        }
+        prev = i + 1;
+      }
+      return acc;
+    }, []);
+
+    if (prev &lt;= len) {
+      getCoordinate(res, len);
+    }
+    return res;
+  },
+</code></pre>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://upload-images.jianshu.io/upload_images/4260383-9d6063f960722055.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="分段轨迹轨迹" class="lazyload"><figcaption class="image-caption">分段轨迹轨迹</figcaption></figure></p>
+
+<h4 id="3-绘制轨迹">3. 绘制轨迹</h4>
+
+<p>通过<code>Vue</code>侦听器<code>watch</code>响应数据变化，调用<code>generateOrbit</code>方法进行轨迹绘制</p>
+
+<pre><code class="language-javascript">  orbitData: {
+    handler(val, oldVal) {
+      if (val) {
+        this.clearTrail();
+        for (const orbit of val) {
+          // 轨迹段有两个点以上才绘制轨迹
+          if (orbit &amp;&amp; orbit.coordinates &amp;&amp; orbit.coordinates.length &gt; 1) {
+            this.appMap.generateOrbit(orbit);
+          }
+        }
+      }
+    },
+    deep: true
+  },
+}
+</code></pre>
+
+<p><code>generateOrbit</code>方法内部会<code>new</code>一个<code>ol.geom.LineString</code>的实例<code>lineString</code>，如果坐标数组长度大于 1，就通过<code>appendCoordinate</code>方法遍历新增坐标，否则就重新<code>new</code>为<code>ol.geom.Point</code>的实例，画一个点。由于此处不需要画点，在调用方法前就对数据进行预过滤，减少了函数调用次数，提高了执行效率，也避免了直接对<code>gais</code>源码进行修改</p>
+
+<pre><code>  // generateOrbit核心实现
+  function (param) {
+    ……
+    var lineString = new ol.geom.LineString();
+    for (var i = 0; i &lt; coordinates.length; i++) {
+      var item = coordinates[i];
+      if (item &amp;&amp; item.x &amp;&amp; item.y) {
+        var point = [item.x, item.y];
+        if (coordinates.length == 1) {
+          lineString = new ol.geom.Point(point);
+        } else {
+          lineString.appendCoordinate(point)
+        }
+      }
+    }
+    ……
+</code></pre>
+
+<h3 id="监控点状态更新">监控点状态更新</h3>
+
+<p><strong>获取点标记的 id 映射表</strong>，地图矢量图层加载完成后，会抛出一个名为 <code>load-vector-success</code> 的事件，此时矢量数据加载完成，通过监听该事件可以拿到矢量图层的全部信息。通过<code>Vue</code>的组件通信传递信息，最终得到一个巡检点的 Map 映射集合<code>trailPoint</code></p>
+
+<ul>
+<li><p>map 组件</p>
+
+<pre><code class="language-javascript">let event = this.appMap.on('vector-load-feature-success', event =&gt; {
+// 过滤巡检监控点
+  if (this.isInspect &amp;&amp; event &amp;&amp; event.param &amp;&amp; event.param.code === 'spms_static_camera') {
+    event.param.features = event.param.features.filter(val =&gt; val.N.use === 'trail')
+    this.$emit('inspect', event.param.features)
+  }
+...
+}
+</code></pre></li>
+
+<li><p>父组件</p>
+
+<pre><code class="language-javascript">handleInspect(features) {
+  if (features) {
+    this.trailPoint = new Map(features.map(val =&gt; [val.N.id, val.N.fid]));
+  }
+}
+</code></pre></li>
+</ul>
+
+<ol>
+<li><p><strong>计算出符合状态更新方法的数据。</strong>当调用地图的状态更新方法时，需要根据<code>featureId</code>按图索骥找到对应的点标记，进而更新矢量图层。查询结果<code>trailData</code>中的<code>elementId</code>和<code>trailPoint</code>的<code>id</code>是同一个值，而<code>id</code>与<code>featureId</code>又存在映射关系，不难得出<code>statefulPoint</code></p>
+
+<pre><code class="language-javascript">computed： {
+statefulPoint() {
+  const len = this.trailData.length;
+  if (len) {
+    // 根据当前操作类型映射，1 添加 2 替换 3 清除
+    operate = operateMap.get(this.currentOperate)
+    let obj = {
+      layerCode: this.layerCode,  //图层编码
+      layerWorkspace: this.layerWorkspace,  // 图层所在工作空间编码
+      operate
+    };
+
+    return this.trailData.map(v =&gt; {
+      const featureId = this.trailPoint.get(v.elementId); // 获取点标记的 featureId
+      const status = v.type
+      return {
+        ...obj,
+        featureId,
+        status
+      };
+    });
+  } else {
+    return [];
+  }
+},
+......
+}
+</code></pre></li>
+
+<li><p><strong>更新监控点状态</strong>，当监控点状态数据发生变更时，执行<code>updateStatus</code>方法，更新监控点状态</p>
+
+<pre><code class="language-javascript">statefulPoint: {
+  handler(val, oldVal) {
+    if (val &amp;&amp; val.length) {
+      this.appMap.updateStatus(val);
+    }
+  },
+  deep: true
+}
+</code></pre></li>
+</ol>
+
+<p><code>updateStatus</code>方法传入的五个参数中，<code>featureId</code>、<code>layerCode</code>、<code>layerWorkspace</code>用于定位到要素，<code>status</code>对应 gis 引擎服务中对应的图标样式、<code>operate</code>会涉及到五种状态变更（对应传入的 operate 参数），分别为<strong>添加（add）</strong>、<strong>追加（append）</strong>、<strong>替换（replace）</strong>、<strong>删除（delete）</strong>、<strong>清除（clear）</strong>。由于此处的监控点一开始都是无状态的，所以在这里进行<strong>添加（add）</strong></p>
+
+<h3 id="用户修改监控点状态">用户修改监控点状态</h3>
+
+<p>点击地图上的监控点后，右侧会出现当前监控点的详情页面，当用户手动更改监控点的经过状态时，只需要更新<code>trailData</code>中对应监控点的<code>type</code>类型，<code>orbitData</code> 和<code>statefulPoint</code>就会随之更新，进而触发侦听器，重新绘制轨迹和更新监控点状态。此时监控点已有状态，会进行<strong>替换（replace）</strong></p>
+
+<pre><code class="language-javascript">  setStatus() {
+    let _loading = this._getLoading();
+    const params = {
+      cameraIndexCode: this.point.cameraIndexCode,
+      type: this.pointType === 1 ? 2 : 1,
+      reviseTime: this.formatDate(this.form.timeScope).slice(0, 10)
+    };
+    Service.amendTrajectory(params)
+      .then(res =&gt; {
+        this._closeLoading(_loading);
+        const { result, data } = res;
+        if (result) {
+          this.point.modifyPerson = data.personName;
+          const index = this.trailData.findIndex(
+            item =&gt; item.cameraIndexCode === this.point.cameraIndexCode
+          );
+          this.trailData[index].type = params.type;
+          this.point.status = params.type;
+          this.$message({
+            type: 'success',
+            message: '设置成功！'
+          });
+        }
+      })
+      .catch(err =&gt; this.$message.error(err.resultMsg));
+  },
+</code></pre>
+
+<p>Tips: 由于用户可能进行多次不同的查询操作，因此每次查询时要先清除之前的轨迹和监控点状态，再进行之前的操作：</p>
+
+<ol>
+<li>清除监控点状态依然使用<code>updateStatus</code>。对状态进行<strong>清除（clear）</strong></li>
+
+<li><p>清除轨迹的实现方法如下：</p>
+
+<pre><code class="language-javascript">MapConfig.prototype.clearOrbit = function() {
+if (this.orbitLayer) {
+this.orbitLayer.getSource().clear();
+}
+};
+</code></pre></li>
+</ol>
+
+<h2 id="最终效果">最终效果</h2>
+
+<h3 id="第一次查询有结果">第一次查询有结果</h3>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://upload-images.jianshu.io/upload_images/4260383-82a7cb175be543ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="未全部经过" class="lazyload"><figcaption class="image-caption">未全部经过</figcaption></figure></p>
+
+<h3 id="用户手动设置监控点状态">用户手动设置监控点状态</h3>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://upload-images.jianshu.io/upload_images/4260383-c0fc94eb3f2c11e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="点击监控点显示详情" class="lazyload"><figcaption class="image-caption">点击监控点显示详情</figcaption></figure></p>
+
+<h3 id="状态修改完成">状态修改完成</h3>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://upload-images.jianshu.io/upload_images/4260383-fdd0c78aa4638feb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="全部经过" class="lazyload"><figcaption class="image-caption">全部经过</figcaption></figure></p>
+
+<h2 id="完整流程">完整流程</h2>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://upload-images.jianshu.io/upload_images/4260383-9f3a208f095ee650.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="完整流程.png" class="lazyload"><figcaption class="image-caption">完整流程.png</figcaption></figure></p>
+
+<h2 id="参考资料">参考资料</h2>
+
+<ul>
+<li><a href="https://vuejs.org/index.html" rel="nofollow noreferrer" target="_blank">https://vuejs.org/index.html</a></li>
+<li><a href="https://openlayers.org/" rel="nofollow noreferrer" target="_blank">https://openlayers.org/</a></li>
+<li><a href="https://developer.mozilla.org/" rel="nofollow noreferrer" target="_blank">https://developer.mozilla.org</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>9aoyang </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://9aoyang.me/2019/map-track/>https://9aoyang.me/2019/map-track/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="https://9aoyang.me/tags/vue/">
+                    #Vue</a></span>
+            
+            <span class="tag"><a href="https://9aoyang.me/tags/openlayers/">
+                    #Openlayers</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://9aoyang.me">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://9aoyang.me/2019/some-way-to-import-photo-in-vue/" class="prev" rel="prev" title="Vue项目中引入图片资源的几种方式"><i class="iconfont icon-left"></i>&nbsp;Vue项目中引入图片资源的几种方式</a>
+         
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2019</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://9aoyang.me">9aoyang</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+     <link href="//lib.baomitu.com/lightgallery/1.6.11/css/lightgallery.min.css" rel="stylesheet">  
+      
+     <script src="/js/vendor_gallery.min.js" async="" ></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

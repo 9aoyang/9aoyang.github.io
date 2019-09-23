@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>9aoyang&#39;s blog on 9aoyang&#39;s blog</title>
@@ -6,91 +5,16 @@
     <description>Recent content in 9aoyang&#39;s blog on 9aoyang&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 29 Jan 2019 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 22 Mar 2019 00:00:00 +0800</lastBuildDate>
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Vue项目中引入图片资源的几种方式</title>
-      <link>https://9aoyang.me/2019/some-way-to-import-photo-in-vue/</link>
-      <pubDate>Tue, 29 Jan 2019 00:00:00 +0800</pubDate>
+      <title>Posts</title>
+      <link>https://9aoyang.me/posts/</link>
+      <pubDate>Fri, 22 Mar 2019 00:00:00 +0800</pubDate>
       
-      <guid>https://9aoyang.me/2019/some-way-to-import-photo-in-vue/</guid>
-      <description>
-
-&lt;h1 id=&#34;vue项目中引入图片资源的几种方式&#34;&gt;Vue项目中引入图片资源的几种方式&lt;/h1&gt;
-
-&lt;h2 id=&#34;按照常规语法引用路径&#34;&gt;按照常规语法引用路径&lt;/h2&gt;
-
-&lt;h3 id=&#34;html&#34;&gt;HTML&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;img src = &#39;../../path/to/image.png&#39; /&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;css&#34;&gt;CSS&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;background-image: url(&#39;../../path/to/image.png&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;javascript&#34;&gt;JavaScript&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;// import
-import image from &#39;../../path/to/image.png&#39;
-// require
-require(&#39;../../path/to/image.png&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这种方式是最常见的，但这种引入方式存在很高的维护成本。在&lt;code&gt;webpack&lt;/code&gt;中，可以通过配置&lt;code&gt;alias&lt;/code&gt;来简化路径，同时由于指定了更精确的路径，可以降低构建的文件搜索耗时，进而提高构建效率。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;module.exports = {
-  //...
-  resolve: {
-    alias: {
-      path: path.resolve(__dirname, &#39;../../path&#39;),
-    }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这样，js中的写法就可以变为&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;// import
-import image from &#39;path/to/image.png&#39;
-// require
-require(&#39;path/to/image.png&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如果再借助&lt;code&gt;css-loader&lt;/code&gt;，&lt;code&gt;css&lt;/code&gt;中的写法就可以是&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;To import assets from a node_modules path (include resolve.modules) and for alias, prefix it with a ~:&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;background-image: url(&#39;~path/to/image.png&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;进一步借助&lt;code&gt;vue-html-loader&lt;/code&gt; 和 &lt;code&gt;css-loader&lt;/code&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;vue-html-loader and css-loader translates non-root URLs to relative paths. In order to treat it like a module path, prefix it with ~:&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;非根路径会被&lt;code&gt;vue-html-loader&lt;/code&gt;和&lt;code&gt;css-loader&lt;/code&gt;转化为相对路径，如果要想被识别为模块路径，就在路径前加上前缀&lt;code&gt;~&lt;/code&gt;。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;img src = &#39;~path/to/image.png&#39; /&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;在vue中使用-v-bind-绑定图片-src-属性&#34;&gt;在vue中使用&lt;code&gt;v-bind&lt;/code&gt;绑定图片&lt;code&gt;src&lt;/code&gt;属性：&lt;/h2&gt;
-
-&lt;p&gt;首先，在data中定义好图片路径&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;path: require(&#39;path/to/image.png&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;然后，在 template 模板里&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;img :src=&#39;path&#39; /&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <guid>https://9aoyang.me/posts/</guid>
+      <description></description>
     </item>
     
     <item>
@@ -102,6 +26,12 @@ require(&#39;path/to/image.png&#39;)
       <description>
 
 &lt;h1 id=&#34;about&#34;&gt;About&lt;/h1&gt;
+
+&lt;h2 id=&#34;关于我&#34;&gt;关于我&lt;/h2&gt;
+
+&lt;h2 id=&#34;关于内容&#34;&gt;关于内容&lt;/h2&gt;
+
+&lt;h2 id=&#34;社交信息&#34;&gt;社交信息&lt;/h2&gt;
 </description>
     </item>
     

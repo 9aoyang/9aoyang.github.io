@@ -6,10 +6,21 @@
     <description>Recent content in Vue on 9aoyang&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 29 Jan 2019 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 22 Mar 2019 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://9aoyang.me/tags/vue/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>基于 Vue 和 OpenLayers 地图的轨迹绘制功能</title>
+      <link>https://9aoyang.me/2019/map-track/</link>
+      <pubDate>Fri, 22 Mar 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://9aoyang.me/2019/map-track/</guid>
+      <description>前言 近期工作中主要都在做 gais 地图的相关业务，本文会对项目中遇到的一些问题和挑战做一次梳理和总结，方便同事们在遇到类似业务场景时有所参考，快速上手
+准备工作 需求分析  根据查询结果返回的巡检数据，对经过的监控点进行轨迹绘制 监控点默认状态为未经过，当查询结束后，根据查询结果更新矢量图层中的点标记，将状态更新为经过或未经过 用户可以手动调整监控点是否经过，修改后监控点状态和轨迹同步更新  根据业务封装的地图方法  generateOrbit 轨迹绘制 clearOrbit 清除轨迹 updateStatus 更新点标记状态  实现 轨迹绘制 1. 获取数据 输入查询条件，点击查询请求接口，获取到所有监控点的数据记录 trailData 2. 处理数据 当返回的trailData形如[经过，经过，未经过，经过，经过]时，轨迹需要分段显示，此处参考 split 的实现原理，定义chunkTrails 方法并结合Vue的计算属性computed，计算出轨迹数据 orbitData
+computed: { orbitData() { if (this.trailData &amp;amp;&amp;amp; this.trailData.length) { return this.chunkTrails(this.trailData) .map(coordinates =&amp;gt; { return { peopleId: &#39;&#39; //业务需要，与其他地方保持一致 coordinates }; }) .filter(val =&amp;gt; val.coordinates.length); } else { return []; } } ...... } /** * 根据巡检点状态进行轨迹切分，1 经过 2 未经过 * * @params {object[]} arr 后端返回的巡检点对象数组 * return {number[][]} 分段轨迹 */ chunkTrails(arr = []) { let prev = 0; let len = arr.</description>
+    </item>
     
     <item>
       <title>Vue项目中引入图片资源的几种方式</title>
@@ -17,10 +28,11 @@
       <pubDate>Tue, 29 Jan 2019 00:00:00 +0800</pubDate>
       
       <guid>https://9aoyang.me/2019/some-way-to-import-photo-in-vue/</guid>
-      <description>Vue项目中引入图片资源的几种方式 按照常规语法引用路径 HTML &amp;lt;img src = &#39;../../path/to/image.png&#39; /&amp;gt;  CSS background-image: url(&#39;../../path/to/image.png&#39;)  JavaScript // import import image from &#39;../../path/to/image.png&#39; // require require(&#39;../../path/to/image.png&#39;)  这种方式是最常见的，但这种引入方式存在很高的维护成本。在webpack中，可以通过配置alias来简化路径，同时由于指定了更精确的路径，可以降低构建的文件搜索耗时，进而提高构建效率。
-module.exports = { //... resolve: { alias: { path: path.resolve(__dirname, &#39;../../path&#39;), } } }  这样，js中的写法就可以变为
-// import import image from &#39;path/to/image.png&#39; // require require(&#39;path/to/image.png&#39;)  如果再借助css-loader，css中的写法就可以是
- To import assets from a node_modules path (include resolve.modules) and for alias, prefix it with a ~:</description>
+      <description>按照常规语法引用路径 HTML &amp;lt;img src=&amp;quot;../../path/to/image.png&amp;quot; /&amp;gt;  CSS background-image: url(&#39;../../path/to/image.png&#39;);  JavaScript // import import image from &#39;../../path/to/image.png&#39;; // require require(&#39;../../path/to/image.png&#39;);  这种方式是最常见的，但这种引入方式存在很高的维护成本。在webpack中，可以通过配置alias来简化路径，同时由于指定了更精确的路径，可以降低构建的文件搜索耗时，进而提高构建效率。
+module.exports = { //... resolve: { alias: { path: path.resolve(__dirname, &#39;../../path&#39;) } } };  这样，js 中的写法就可以变为
+// import import image from &#39;path/to/image.png&#39;; // require require(&#39;path/to/image.png&#39;);  如果再借助css-loader，css中的写法就可以是
+ To import assets from a node_modules path (include resolve.modules) and for alias, prefix it with a ~:
+ background-image: url(&#39;~path/to/image.</description>
     </item>
     
   </channel>

@@ -1,6 +1,95 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+    <url>
+      <loc>https://9aoyang.me/</loc>
+      
+      <lastmod>2019-03-22T00:00:00+08:00</lastmod>
+      
+      
+      
+      
+    </url>
+  
+    <url>
+      <loc>https://9aoyang.me/categories/</loc>
+      
+      <lastmod>2019-03-22T00:00:00+08:00</lastmod>
+      
+      
+      
+      
+    </url>
+  
+    <url>
+      <loc>https://9aoyang.me/tags/openlayers/</loc>
+      
+      <lastmod>2019-03-22T00:00:00+08:00</lastmod>
+      
+      
+      
+      
+    </url>
+  
+    <url>
+      <loc>https://9aoyang.me/posts/</loc>
+      
+      <lastmod>2019-03-22T00:00:00+08:00</lastmod>
+      
+      
+      
+      
+    </url>
+  
+    <url>
+      <loc>https://9aoyang.me/categories/project/</loc>
+      
+      <lastmod>2019-03-22T00:00:00+08:00</lastmod>
+      
+      
+      
+      
+    </url>
+  
+    <url>
+      <loc>https://9aoyang.me/tags/</loc>
+      
+      <lastmod>2019-03-22T00:00:00+08:00</lastmod>
+      
+      
+      
+      
+    </url>
+  
+    <url>
+      <loc>https://9aoyang.me/tags/vue/</loc>
+      
+      <lastmod>2019-03-22T00:00:00+08:00</lastmod>
+      
+      
+      
+      
+    </url>
+  
+    <url>
+      <loc>https://9aoyang.me/2019/map-track/</loc>
+      
+      <lastmod>2019-03-22T00:00:00+08:00</lastmod>
+      
+      
+      
+      
+    </url>
+  
+    <url>
+      <loc>https://9aoyang.me/categories/vue/</loc>
+      
+      <lastmod>2019-01-29T00:00:00+08:00</lastmod>
+      
+      
+      
+      
+    </url>
   
     <url>
       <loc>https://9aoyang.me/2019/some-way-to-import-photo-in-vue/</loc>
@@ -14,72 +103,6 @@
   
     <url>
       <loc>https://9aoyang.me/about/</loc>
-      
-      
-      
-      
-    </url>
-  
-    <url>
-      <loc>https://9aoyang.me/</loc>
-      
-      <lastmod>2019-01-29T00:00:00+08:00</lastmod>
-      
-      
-      
-      <priority>0</priority>
-      
-      
-    </url>
-  
-    <url>
-      <loc>https://9aoyang.me/categories/</loc>
-      
-      
-      
-      <priority>0</priority>
-      
-      
-    </url>
-  
-    <url>
-      <loc>https://9aoyang.me/posts/</loc>
-      
-      <lastmod>2019-01-29T00:00:00+08:00</lastmod>
-      
-      
-      
-      <priority>0</priority>
-      
-      
-    </url>
-  
-    <url>
-      <loc>https://9aoyang.me/tags/</loc>
-      
-      
-      
-      <priority>0</priority>
-      
-      
-    </url>
-  
-    <url>
-      <loc>https://9aoyang.me/tags/vue/</loc>
-      
-      <lastmod>2019-01-29T00:00:00+08:00</lastmod>
-      
-      
-      
-      <priority>0</priority>
-      
-      
-    </url>
-  
-    <url>
-      <loc>https://9aoyang.me/categories/vue/</loc>
-      
-      <lastmod>2019-01-29T00:00:00+08:00</lastmod>
       
       
       
